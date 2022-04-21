@@ -28,6 +28,4 @@ jobs:
         GIT_PR_RELEASE_TEMPLATE: .git-pr-release-template
       run: |
         gem install git-pr-release -v "2.1.1"
-        git remote set-url origin "https://${GITHUB_ACTOR}:${GIT_PR_RELEASE_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-        git config --global --add safe.directory $(pwd)
         git-pr-release
