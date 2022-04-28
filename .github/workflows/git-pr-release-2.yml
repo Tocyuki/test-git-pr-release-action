@@ -19,6 +19,9 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.1
+        
+    - name: Install git-pr-release
+      run: gem install git-pr-release -v "2.1.1"
       
     - name: Execute git-pr-release
       env:
@@ -26,6 +29,4 @@ jobs:
         GIT_PR_RELEASE_BRANCH_PRODUCTION: release-2
         GIT_PR_RELEASE_BRANCH_STAGING: master
         GIT_PR_RELEASE_TEMPLATE: .git-pr-release-template
-      run: |
-        gem install git-pr-release -v "2.1.1"
-        git-pr-release
+      run: git-pr-release
