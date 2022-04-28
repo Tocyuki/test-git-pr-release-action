@@ -1,0 +1,31 @@
+name: Create PR from master to release-2
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  gitPrRelease:
+    name: git-pr-release
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 0
+
+    - name: Set up Ruby 3.1
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1
+      
+    - name: Execute git-pr-release
+      env:
+        GIT_PR_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GIT_PR_RELEASE_BRANCH_PRODUCTION: release-2
+        GIT_PR_RELEASE_BRANCH_STAGING: master
+        GIT_PR_RELEASE_TEMPLATE: .git-pr-release-template
+      run: |
+        gem install git-pr-release -v "2.1.1"
+        git-pr-release
